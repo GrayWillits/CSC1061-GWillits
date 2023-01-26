@@ -43,6 +43,11 @@ public class Employee {
 	public void setSSN(int sSN) {
 		SSN = sSN;
 	}
+
+	@Override
+	public String toString() {
+		return "first = " + first + "\nlast = " + last + "\nSSN = " + SSN;
+	}
 	
 	
 }
