@@ -23,8 +23,7 @@ public class BasePlusCommissionEmployee extends CommissionEmployee {
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return super.toString();
+		return "first = " + this.getFirst() + "\nlast = " + this.getLast() + "\nSSN = " + this.getSSN() + "\npayment amount = " + this.getPaymentAmount();;
 	}
 	
 }

@@ -21,7 +21,7 @@ public class Employee {
 	}
 
 	public String getFirst() {
-		return first;
+		return this.first;
 	}
 
 	public void setFirst(String first) {
@@ -29,7 +29,7 @@ public class Employee {
 	}
 
 	public String getLast() {
-		return last;
+		return this.last;
 	}
 
 	public void setLast(String last) {
@@ -37,16 +37,16 @@ public class Employee {
 	}
 
 	public int getSSN() {
-		return SSN;
+		return this.SSN;
 	}
 
-	public void setSSN(int sSN) {
-		SSN = sSN;
+	public void setSSN(int SSN) {
+		this.SSN = SSN;
 	}
 
 	@Override
 	public String toString() {
-		return "first = " + first + "\nlast = " + last + "\nSSN = " + SSN;
+		return "first = " + this.first + "\nlast = " + this.last + "\nSSN = " + this.SSN;
 	}
 	
 	
