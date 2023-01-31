@@ -5,9 +5,24 @@ public class AccountsPayable {
 		// TODO Auto-generated method stub
 		Employee[] payableEmployees = new Employee[6];
 		
-		for (Employee Employees: payableEmployees) {
+		for (Employee employee: payableEmployees) {
 			System.out.println("FIX ME");
 		}
+		
+		for (Employee employee: payableEmployees) {
+			System.out.println(employee.getFirst() + " " + employee.getLast() + " : " + employee.getPaymentAmount());
+		}
+		
+		for (Employee employee: payableEmployees) {
+			if (employee.getClass() == BasePlusCommissionEmployee.class) {
+				((BasePlusCommissionEmployee) employee).setBasePay(1.1 * ((BasePlusCommissionEmployee) employee).getBasePay());
+			}
+		}
+		
+		for (Employee employee: payableEmployees) {
+			System.out.println(employee.getFirst() + " " + employee.getLast() + " : " + employee.getPaymentAmount());
+		}
+		
 	}
 	
 	public void print (Employee employee) {
