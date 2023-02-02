@@ -29,7 +29,7 @@ public class CommissionEmployee extends Employee {
 		return super.toString() + "\npayment amount = " + this.getPaymentAmount();
 	}
 
-	public CommissionEmployee(String first, String last, int SSN, double grossSales, double commission) {
+	public CommissionEmployee(String first, String last, String SSN, double grossSales, double commission) {
 		super(first, last, SSN);
 		this.grossSales = grossSales;
 		this.commission = commission;

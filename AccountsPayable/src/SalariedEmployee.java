@@ -2,7 +2,7 @@
 public class SalariedEmployee extends Employee {
 	private double weeklySalary;
 
-	public SalariedEmployee(String first, String last, int SSN, double weeklySalary) {
+	public SalariedEmployee(String first, String last, String SSN, double weeklySalary) {
 		super(first, last, SSN);
 		this.weeklySalary = weeklySalary;
 	}

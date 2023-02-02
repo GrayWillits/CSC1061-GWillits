@@ -2,9 +2,9 @@
 public class Employee {
 	private String first;
 	private String last;
-	private int SSN;
+	private String SSN;
 		
-	public Employee(String first, String last, int SSN) {
+	public Employee(String first, String last, String SSN) {
 		this.first = first;
 		this.last = last;
 		this.SSN = SSN;
@@ -13,7 +13,7 @@ public class Employee {
 	public Employee() {
 		this.first = "N/A";
 		this.last = "N/A";
-		this.SSN = -1;
+		this.SSN = "N/A";
 	}
 	
 	public double getPaymentAmount() {
@@ -36,11 +36,11 @@ public class Employee {
 		this.last = last;
 	}
 
-	public int getSSN() {
+	public String getSSN() {
 		return this.SSN;
 	}
 
-	public void setSSN(int SSN) {
+	public void setSSN(String SSN) {
 		this.SSN = SSN;
 	}
 
