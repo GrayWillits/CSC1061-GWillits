@@ -8,10 +8,14 @@ public class TestSchoolRecords {
 		// TODO Auto-generated method stub
 		Database test = new Database();
 		Person person = new Person();
-		Person person2 = new Person();
+		Employee person2 = new Employee();
 		
-		test.writePerson(person);
+		System.out.println(person2.toCSV());
+		
 		test.writePerson(person2);
+		test.writePerson(person);
+		
+		test.readDatabase();
 	}
 
 }
