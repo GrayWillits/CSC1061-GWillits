@@ -9,7 +9,7 @@ public class Student extends Person {
 
 	public Student(String name, String address, String phone, String email, String status) {
 		super(name, address, phone, email);
-		this.status = status;
+		this.status = status.replace(",", "");
 	}
 
 	public String getStatus() {

@@ -1,0 +1,6 @@
+Student,Kevin,8642 Real Drive,(555) 555-5555,KevinX@email.edu,Senior
+Student,Ivy,1234 Boardwalk Avenue,+1 (970) 585-1234,IvyM@email.edu,Freshman
+Faculty,Ryan,2513 Place Lane,723-8123,Ryannnn@company.org,Headquarters,67890,02/24/3725,9-5,Junior
+Faculty,Sam,4215 Something Circle,+1 123-4567,Sammy@company.org,Branch Office 1,103657,45/65/2502,10-8,Senior
+Staff,Ava,9876 House Street,(888) 888-8888,Ava@something.com,Colorado Main,679867,45/68/4521,Manager
+Staff,May,6356 Park Plaza,789-1234,May@something.com,New York City,65458,45/48/3215,Janitor

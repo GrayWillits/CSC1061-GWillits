@@ -11,8 +11,8 @@ public class Faculty extends Employee {
 	public Faculty(String name, String address, String phone, String email, String office, String salary,
 			String dateHired, String officeHours, String rank) {
 		super(name, address, phone, email, office, salary, dateHired);
-		this.officeHours = officeHours;
-		this.rank = rank;
+		this.officeHours = officeHours.replace(",", "");
+		this.rank = rank.replace(",", "");
 	}
 
 	public String getOfficeHours() {

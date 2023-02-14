@@ -11,10 +11,11 @@ public class Person {
 	}
 
 	public Person(String name, String address, String phone, String email) {
-		this.name = name;
-		this.address = address;
-		this.phone = phone;
-		this.email = email;
+				
+		this.name = name.replace(",", "");
+		this.address = address.replace(",", "");
+		this.phone = phone.replace(",", "");
+		this.email = email.replace(",", "");
 	}
 
 	public String getName() {

@@ -12,9 +12,9 @@ public class Employee extends Person {
 	public Employee(String name, String address, String phone, String email, String office, String salary,
 			String dateHired) {
 		super(name, address, phone, email);
-		this.office = office;
-		this.salary = salary;
-		this.dateHired = dateHired;
+		this.office = office.replace(",", "");
+		this.salary = salary.replace(",", "");
+		this.dateHired = dateHired.replace(",", "");
 	}
 
 	public String getOffice() {

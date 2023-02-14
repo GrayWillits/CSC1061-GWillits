@@ -10,7 +10,7 @@ public class Staff extends Employee {
 	public Staff(String name, String address, String phone, String email, String office, String salary,
 			String dateHired, String title) {
 		super(name, address, phone, email, office, salary, dateHired);
-		this.title = title;
+		this.title = title.replace(",", "");
 	}
 
 	public String getTitle() {
