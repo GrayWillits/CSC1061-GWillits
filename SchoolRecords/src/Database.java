@@ -7,12 +7,24 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * This is the class that controls how objects are saved to
+ * and retrieved from text files in a CSV format
+ */
 public class Database {
 	
+	/**
+	 * Determines the name of the file used for saving objects
+	 */
 	private final String FILE_NAME = "PersonDatabase.txt";
 
+	/**
+	 * Default constructor that will create a new file
+	 * if one does not already exist
+	 * @throws IOException
+	 */
 	public Database() throws IOException {
-		// TODO Auto-generated constructor stub
+		
 		File myFile = new File(FILE_NAME);
 		
 		if (!myFile.exists()) {
@@ -22,6 +34,11 @@ public class Database {
 		}
 	}
 	
+	/**
+	 * Used to write information about an object to the database
+	 * @param person Object to be saved to database
+	 * @throws IOException
+	 */
 	public void writePerson (Person person) throws IOException {
 		
 		PrintWriter writer = new PrintWriter(new FileOutputStream(FILE_NAME, true));
@@ -31,6 +48,11 @@ public class Database {
 		writer.close();
 	}
 	
+	/**
+	 * Used in order to retrieve the objects previously saved to the database
+	 * @return Returns an ArrayList of objects saved to database
+	 * @throws FileNotFoundException
+	 */
 	public ArrayList<Person> readDatabase () throws FileNotFoundException {
 		
 		ArrayList<Person> data = new ArrayList<Person>();
@@ -66,6 +88,10 @@ public class Database {
 
 	}
 	
+	/**
+	 * Used in order to clear all data from the database
+	 * @throws IOException
+	 */
 	public void clearDatabase () throws IOException {
 		PrintWriter writer = new PrintWriter(new FileWriter(FILE_NAME, false),false);
 		

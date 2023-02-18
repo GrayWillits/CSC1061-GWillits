@@ -1,36 +1,18 @@
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**	
+ * This is the driver class for my program
  * 
  * @author Gray Willits
- * 
- * 
  */
-
-/**
- * 
- * Describe what a class does
- *
- */
-
-/**
- * Describe what a method does
- * 
- * @param if applicable
- * 
- * @return if applicable
- *
- */
-
-
-
-
 public class TestSchoolRecords {
-
+	
+	/**
+	 * This is the main method for my project
+	 */
 	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
+		
 		Database database = new Database();
 		ArrayList<Person> data;
 		
@@ -55,6 +37,7 @@ public class TestSchoolRecords {
 		for (Person person: data) {
 			System.out.println(person.toString());
 		}
+		
 	}
 
 }
