@@ -1,22 +1,30 @@
 package edu.frcc.csc1061j.ArrayAndLinkedList;
 
+import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
 public class MyArrayList<T> implements List<T> {
+	
+	private T[] array;
+	private int size;
+	
+	@SuppressWarnings("unchecked")
+	public MyArrayList() {
+		array = (T[]) new Object[4];
+		size = 0;
+	}
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return size;
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return size == 0;
 	}
 
 	@Override
@@ -43,16 +51,31 @@ public class MyArrayList<T> implements List<T> {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public boolean add(T e) {
-		// TODO Auto-generated method stub
-		return false;
+		if (size >= array.length) {
+			T[] bigger = (T[]) new Object[array.length * 2];
+			System.arraycopy(array,  0,  bigger, 0, array.length);
+			array = bigger;
+		}
+		array[size] = e;
+		size++;
+		return true;
 	}
 
 	@Override
 	public boolean remove(Object o) {
-		// TODO Auto-generated method stub
-		return false;
+		int removeIndex = indexOf(o);
+		if (removeIndex == -1) {
+			return false;
+		}
+		for (int i = removeIndex; i < size - 1; i++) {
+			array[i] = array[i + 1];
+		}
+		array[size - 1] = null;
+		size--;
+		return true;
 	}
 
 	@Override
@@ -87,44 +110,73 @@ public class MyArrayList<T> implements List<T> {
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
-		
+		size = 0;
 	}
 
 	@Override
 	public T get(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		if (index < 0 || index >= size) {
+			throw new IndexOutOfBoundsException();
+		}
+		return array[index];
 	}
 
 	@Override
 	public T set(int index, T element) {
-		// TODO Auto-generated method stub
-		return null;
+		if (index < 0 || index >= size) {
+			throw new IndexOutOfBoundsException();
+		}
+		T old = array[index];
+		array[index] = element;
+		return old;
 	}
 
 	@Override
 	public void add(int index, T element) {
-		// TODO Auto-generated method stub
+		if (index < 0 || index > size) {
+			throw new IndexOutOfBoundsException();
+		}
+		add(element);
 		
+		// Shift elements
+		for (int i = size - 1; i > index; i--) {
+			array[i] = array[i - 1];
+		}
+		array[index] = element;
 	}
 
 	@Override
 	public T remove(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		T element = get(index);
+		for (int i = index; i < size - 1; i++) {
+			array[i] = array[i + 1];
+		}
+		size--;
+		return element;
 	}
 
 	@Override
 	public int indexOf(Object o) {
-		// TODO Auto-generated method stub
-		return 0;
+		int index = -1;
+		for (int i = 0; i < size; i++) {
+			if (o.equals(array[i])) {
+				index = i;
+				break;
+			}
+		}
+		return index;
 	}
 
 	@Override
 	public int lastIndexOf(Object o) {
-		// TODO Auto-generated method stub
-		return 0;
+		int index = -1;
+		for (int i = size - 1; i > -1; i--) {
+			if (o.equals(array[i])) {
+				index = i;
+				break;
+			}
+		}
+		return index;
 	}
 
 	@Override
