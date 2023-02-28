@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.ListIterator;
 
 public class MyLinkedList<E> implements List<E> {
+
+	private Node head;
+	private int size;
 	
 	private class Node {
 		public E data;
@@ -17,9 +20,6 @@ public class MyLinkedList<E> implements List<E> {
 		}
 	}
 	
-	private Node head;
-	private int size;
-	
 	public MyLinkedList() {
 		head = null;
 		size = 0;
@@ -27,13 +27,11 @@ public class MyLinkedList<E> implements List<E> {
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
 		return size;
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
 		return size == 0;
 	}
 
@@ -81,8 +79,37 @@ public class MyLinkedList<E> implements List<E> {
 
 	@Override
 	public boolean remove(Object o) {
-		// TODO Auto-generated method stub
-		return false;
+		int index = indexOf(o);
+		if (index == -1) {
+			return false;
+		}
+		remove(index);
+		return true;
+	}
+	
+	@Override
+	public E remove(int index) {
+		E data = get(index);
+		if (index == 0) {
+			head = head.next;
+		}
+		else {
+			Node node = getNode(index - 1);
+			node.next = node.next.next;
+		}
+		size--;
+		return data;
+	}
+	
+	private Node getNode(int index) {
+		if (index < 0 || index >= size) {
+			throw new IndexOutOfBoundsException();
+		}
+		Node node = head;
+		for (int i = 0; i < index; i++) {
+			node = node.next;
+		}
+		return node;
 	}
 
 	@Override
@@ -93,8 +120,10 @@ public class MyLinkedList<E> implements List<E> {
 
 	@Override
 	public boolean addAll(Collection<? extends E> c) {
-		// TODO Auto-generated method stub
-		return false;
+		for (E data: c) {
+			add(data);
+		}
+		return true;
 	}
 
 	@Override
@@ -117,32 +146,37 @@ public class MyLinkedList<E> implements List<E> {
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
-		
+		head = null;
+		size = 0;
 	}
 
 	@Override
 	public E get(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		Node node = getNode(index);
+		return node.data;
 	}
 
 	@Override
 	public E set(int index, E element) {
-		// TODO Auto-generated method stub
-		return null;
+		Node node = getNode(index);
+		E old = node.data;
+		node.data = element;
+		return old;
 	}
 
 	@Override
 	public void add(int index, E element) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public E remove(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		Node newNode = new Node(element);
+		if (index == 0) {
+			newNode.next = head;
+			head = newNode;
+		}
+		else {
+			Node node = getNode(index - 1);
+			newNode.next = node.next;
+			node.next = newNode;
+		}
+		size++;
 	}
 
 	@Override
@@ -159,8 +193,15 @@ public class MyLinkedList<E> implements List<E> {
 
 	@Override
 	public int lastIndexOf(Object o) {
-		// TODO Auto-generated method stub
-		return 0;
+		Node node = head;
+		int index = -1;
+		for (int i = 0; i < size; i++) {
+			if (o.equals(node.data)) {
+				index = i;
+			}
+			node = node.next;
+		}
+		return index;
 	}
 
 	@Override
