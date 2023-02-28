@@ -8,20 +8,24 @@ import java.util.ListIterator;
 public class MyDoubleLinkedList<E> implements List<E> {
 
 	private Node head;
+	private Node tail;
 	private int size;
 	
 	private class Node {
 		public E data;
 		public Node next;
+		public Node prev;
 		
 		public Node(E data) {
 			this.data = data;
 			this.next = null;
+			this.prev = null;
 		}
 	}
 	
 	public MyDoubleLinkedList() {
 		head = null;
+		tail = null;
 		size = 0;
 	}
 
@@ -68,11 +72,10 @@ public class MyDoubleLinkedList<E> implements List<E> {
 			head = newNode;
 		}
 		else {
-			Node node = null;
-			for (node = head; node.next != null; node = node.next) {
-			}
-			node.next = newNode;
+			tail.next = newNode;
+			newNode.prev = tail;
 		}
+		tail = newNode;
 		size++;
 		return true;
 	}
@@ -91,11 +94,21 @@ public class MyDoubleLinkedList<E> implements List<E> {
 	public E remove(int index) {
 		E data = get(index);
 		if (index == 0) {
-			head = head.next;
+			if (tail == head ) {
+				tail = null;
+			}
+			head.prev = null;
+			head = head.next;			
 		}
 		else {
 			Node node = getNode(index - 1);
+			if (node.next == tail) {
+				tail = node;
+			}
 			node.next = node.next.next;
+			if (node.next != null) {
+				node.next.prev = node;
+			}
 		}
 		size--;
 		return data;
@@ -147,6 +160,7 @@ public class MyDoubleLinkedList<E> implements List<E> {
 	@Override
 	public void clear() {
 		head = null;
+		tail = null;
 		size = 0;
 	}
 
@@ -169,11 +183,19 @@ public class MyDoubleLinkedList<E> implements List<E> {
 		Node newNode = new Node(element);
 		if (index == 0) {
 			newNode.next = head;
+			head.prev = newNode;
 			head = newNode;
 		}
 		else {
 			Node node = getNode(index - 1);
+			if (node == tail) {
+				tail = newNode;
+			}
 			newNode.next = node.next;
+			newNode.prev = node;
+			if (node.next != null) {
+				node.next.prev = newNode;
+			}
 			node.next = newNode;
 		}
 		size++;
@@ -193,15 +215,14 @@ public class MyDoubleLinkedList<E> implements List<E> {
 
 	@Override
 	public int lastIndexOf(Object o) {
-		Node node = head;
-		int index = -1;
+		Node node = tail;
 		for (int i = 0; i < size; i++) {
 			if (o.equals(node.data)) {
-				index = i;
+				return i;
 			}
-			node = node.next;
+			node = node.prev;
 		}
-		return index;
+		return -1;
 	}
 
 	@Override
