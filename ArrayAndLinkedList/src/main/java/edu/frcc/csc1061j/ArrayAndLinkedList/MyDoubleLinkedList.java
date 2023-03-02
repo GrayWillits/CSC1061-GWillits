@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+
 public class MyDoubleLinkedList<E> implements List<E> {
 
 	private Node head;
@@ -55,8 +56,13 @@ public class MyDoubleLinkedList<E> implements List<E> {
 
 	@Override
 	public Object[] toArray() {
-		// TODO Auto-generated method stub
-		return null;
+		Object[] array = new Object[size];
+		int i = 0;
+		for (Node node = head; node != null; node = node.next) {
+			array[i] = node.data;
+			i++;
+		}
+		return array;
 	}
 
 	@Override
