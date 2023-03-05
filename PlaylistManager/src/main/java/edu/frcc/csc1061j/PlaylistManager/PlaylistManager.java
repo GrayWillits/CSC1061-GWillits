@@ -59,6 +59,12 @@ public class PlaylistManager {
 				playlist.reverse();
 				continue;
 			}
+			
+			else if (option == 6) { //load
+				
+				continue;
+			}
+
 			else { //quit
 				break;
 			}
@@ -74,11 +80,12 @@ public class PlaylistManager {
 				"play\n" +
 				"shuffle\n" +
 				"reverse\n" +
+				"load\n" +
 				"quit";
 	}
 	
 	public static int input(Scanner scnr) {
-		String[] commands = {"add", "remove", "count", "play", "shuffle", "reverse", "quit"};
+		String[] commands = {"add", "remove", "count", "play", "shuffle", "reverse", "load", "quit"};
 		String input;		
 		while (true) {
 			System.out.print("\n: ");
