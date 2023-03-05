@@ -25,9 +25,7 @@ public class DoubleLinkedList<E> implements List<E> {
 	}
 	
 	private class myIterator implements Iterator<E> {
-		
 		private int index = 0;
-
 		@Override
 		public boolean hasNext() {
 			if (index < size) {
@@ -35,14 +33,12 @@ public class DoubleLinkedList<E> implements List<E> {
 			}
 			return false;
 		}
-
 		@Override
 		public E next() {
 			E data = get(index);
 			index++;
 			return data;
 		}
-		
 	}
 	
 	public DoubleLinkedList() {
@@ -285,6 +281,15 @@ public class DoubleLinkedList<E> implements List<E> {
 				node.next.prev = node;
 			}
 		}
+	}
+	
+	public int count() {
+		int i = 0;
+		Node node = head;
+		for (node = head; node != null; node = node.next) {
+			i++;
+		}
+		return i;
 	}
 }
 

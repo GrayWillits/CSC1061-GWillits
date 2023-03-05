@@ -1,26 +1,105 @@
 package edu.frcc.csc1061j.PlaylistManager;
 
 import java.util.Arrays;
+import java.util.Scanner;
 
 
 public class PlaylistManager {
 	
 	public static void main(String[] args) {
 		
-		DoubleLinkedList<Song> ml = new DoubleLinkedList<Song>();
-		ml.add(new Song("A", "B"));
-		ml.add(new Song("C", "B"));
-		ml.add(new Song("D", "B"));
+		DoubleLinkedList<Song> playlist = new DoubleLinkedList<Song>();
+		Scanner scnr = new Scanner(System.in);
+		String artist, title;
+		int option;
 		
-		for (Song song: ml) {
-			System.out.println(song);
-		}
+		System.out.println(menu());
 		
-		System.out.println(Arrays.toString(ml.toArray()) + "size = " + ml.size());
+		while (true) {
+			option = input(scnr);
+			
+			if (option == 0) { //add
+				System.out.print("Enter artist : ");
+				artist = scnr.nextLine();
+				System.out.print("Enter title : ");
+				title = scnr.nextLine();
 				
+				playlist.add(new Song(title, artist));
+				continue;
+			}
+			
+			else if (option == 1) { //remove
+				System.out.print("Enter artist : ");
+				artist = scnr.nextLine();
+				System.out.print("Enter title : ");
+				title = scnr.nextLine();
+				
+				playlist.remove(new Song(title, artist));
+				continue;
+			}
+			
+			else if (option == 2) { //count
+				System.out.println(playlist.count());
+				continue;
+			}
+			
+			else if (option == 3) { //play
+				for (Song song: playlist) {
+					System.out.println(song.toString());
+				}
+				continue;
+			}
+			
+			else if (option == 4) { //shuffle
+				
+				continue;
+			}
+			
+			else if (option == 5) { //reverse
+				playlist.reverse();
+				continue;
+			}
+			else { //quit
+				break;
+			}
+		}
 	}
 	
-	public void Shuffle(DoubleLinkedList<Song> playlist) {
+	public static String menu() {
+		return 	"*** Playlist Manager! ***\n" +
+				"Commands:\n" +
+				"add\n" +
+				"remove\n" +
+				"count\n" +
+				"play\n" +
+				"shuffle\n" +
+				"reverse\n" +
+				"quit";
+	}
+	
+	public static int input(Scanner scnr) {
+		String[] commands = {"add", "remove", "count", "play", "shuffle", "reverse", "quit"};
+		String input;		
+		while (true) {
+			System.out.print("\n: ");
+			input = scnr.nextLine();
+			if (Arrays.asList(commands).contains(input)) {
+				int i = 0;
+				for (String command: commands) {
+					if (input.equals(command)) {
+						return i;
+					}
+					i++;
+				}
+			}
+			else {
+				System.out.println("Enter a valid command");
+				input = null;
+			}
+		}
+	}
+	
+	public void shuffle(DoubleLinkedList<Song> playlist) {
 		
 	}
 
