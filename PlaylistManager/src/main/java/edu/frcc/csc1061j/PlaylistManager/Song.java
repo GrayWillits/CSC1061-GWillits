@@ -13,6 +13,22 @@ public class Song {
 		this.title = title;
 		this.artist = artist;
 	}
+	
+	@Override
+    public boolean equals(Object o) {
+ 
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof Song)) {
+            return false;
+        }
+         
+        Song c = (Song) o;
+         
+        return this.title.equals(c.title) && this.artist.equals(c.artist);
+	}
 
 	public String getTitle() {
 		return title;
