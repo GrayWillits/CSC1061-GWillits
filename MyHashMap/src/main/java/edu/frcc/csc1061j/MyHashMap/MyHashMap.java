@@ -1,19 +1,20 @@
 package edu.frcc.csc1061j.MyHashMap;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
 
-public class MyHashMap<K,V> implements Map<K,V> {
+public class MyHashMap<K, V> implements Map<K, V> {
 	
 	private static final int INITIAL_NUM_BUCKETS = 4;
 	
 	private int size = 0;
-	private double loadFactorThreshold = 0.5;
-	private LinkedList<Entry<K,V>>[] buckets;
+	private double loadFactorThreshold = 0.5; //The load factor is (size/buckets.length), must be less than the threshold
+	private LinkedList<Entry<K, V>>[] buckets;
 	
-	private static class Entry<K,V> implements Map.Entry<K,V> {
+	private static class Entry<K, V> implements Map.Entry<K, V> {
 		K key;
 		V value;
 		
@@ -62,9 +63,9 @@ public class MyHashMap<K,V> implements Map<K,V> {
 
 	@Override
 	public boolean containsValue(Object value) {
-		for (LinkedList<Entry<K,V>> bucket: buckets) {
+		for (LinkedList<Entry<K, V>> bucket: buckets) {
 			if (bucket != null) {
-				for (Entry<K,V> entry: bucket) {
+				for (Entry<K, V> entry: bucket) {
 					if (entry.getValue().equals(value)) {
 						return true;
 					}
@@ -77,9 +78,9 @@ public class MyHashMap<K,V> implements Map<K,V> {
 	@Override
 	public V get(Object key) {
 		int bucketIndex = Math.abs(key.hashCode()) % buckets.length;
-		LinkedList<Entry<K,V>> bucket = buckets[bucketIndex];
+		LinkedList<Entry<K, V>> bucket = buckets[bucketIndex];
 		if (bucket != null) {
-			for (Entry<K,V> entry: bucket) {
+			for (Entry<K, V> entry: bucket) {
 				if (entry.getKey().equals(key)) {
 					return entry.getValue();
 				}
@@ -91,12 +92,12 @@ public class MyHashMap<K,V> implements Map<K,V> {
 	@Override
 	public V put(K key, V value) {
 		int bucketIndex = Math.abs(key.hashCode()) % buckets.length;
-		LinkedList<Entry<K,V>> bucket = buckets[bucketIndex];
+		LinkedList<Entry<K, V>> bucket = buckets[bucketIndex];
 		if (bucket == null) {
-			bucket = new LinkedList<Entry<K,V>>();
+			bucket = new LinkedList<Entry<K, V>>();
 			buckets[bucketIndex] = bucket;
 		}
-		for (Entry<K,V> entry: bucket) {
+		for (Entry<K, V> entry: bucket) {
 			if (entry.getKey().equals(key)) {
 				V oldValue = entry.getValue();
 				entry.value = value;
@@ -104,7 +105,7 @@ public class MyHashMap<K,V> implements Map<K,V> {
 			}
 		}
 		
-		bucket.add(new Entry<K,V>(key,value));
+		bucket.add(new Entry<K, V>(key,value));
 		size++;
 		
 		//Homework part 1:
@@ -121,9 +122,9 @@ public class MyHashMap<K,V> implements Map<K,V> {
 	@Override
 	public V remove(Object key) {
 		int bucketIndex = Math.abs(key.hashCode()) % buckets.length;
-		LinkedList<Entry<K,V>> bucket = buckets[bucketIndex];
+		LinkedList<Entry<K, V>> bucket = buckets[bucketIndex];
 		if (bucket != null) {
-			for (Entry<K,V> entry: bucket) {
+			for (Entry<K, V> entry: bucket) {
 				if (entry.getKey().equals(key)) {
 					V value = entry.getValue();
 					bucket.remove(entry);
@@ -143,14 +144,23 @@ public class MyHashMap<K,V> implements Map<K,V> {
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
-		
+		size = 0;
+		for (LinkedList<Entry<K, V>> bucket: buckets) {
+			bucket = null;
+		}
 	}
 
 	@Override
 	public Set<K> keySet() {
-		// TODO Auto-generated method stub
-		return null;
+		Set<K> set = new HashSet<K>();
+		for (LinkedList<Entry<K, V>> bucket: buckets) {
+			if (bucket != null) {
+				for (Entry<K, V> entry: bucket) {
+					set.add(entry.getKey());
+				}
+			}
+		}
+		return set;
 	}
 
 	@Override
@@ -160,9 +170,16 @@ public class MyHashMap<K,V> implements Map<K,V> {
 	}
 
 	@Override
-	public Set<java.util.Map.Entry<K, V>> entrySet() {
-		// TODO Auto-generated method stub
-		return null;
+	public Set<Map.Entry<K, V>> entrySet() {
+		Set<Map.Entry<K, V>> set = new HashSet<Map.Entry<K, V>>();
+		for (LinkedList<Entry<K, V>> bucket: buckets) {
+			if (bucket != null) {
+				for (Entry<K, V> entry: bucket) {
+					set.add(entry);
+				}
+			}
+		}
+		return set;
 	}
 
 }
