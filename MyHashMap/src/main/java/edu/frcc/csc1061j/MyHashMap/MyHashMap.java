@@ -108,14 +108,16 @@ public class MyHashMap<K, V> implements Map<K, V> {
 		bucket.add(new Entry<K, V>(key,value));
 		size++;
 		
-		//Homework part 1:
-		//Check if load factor has exceeded the threshold
-		//Take action if it has, rehash()
+		while (size / buckets.length >= loadFactorThreshold) {
+			rehash();
+		}
+		
 		return value;
 	}
 	
 	//Homework part 1
 	private void rehash() {
+		LinkedList<Entry<K, V>>[] newBuckets = new LinkedList[2 * buckets.length];
 		
 	}
 
