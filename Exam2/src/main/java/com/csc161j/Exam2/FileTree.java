@@ -6,8 +6,6 @@ import java.util.Deque;
 import java.util.Iterator;
 import java.util.Queue;
 
-
-
 public class FileTree implements Iterable <FileNode> {
 
 	private FileNode root;

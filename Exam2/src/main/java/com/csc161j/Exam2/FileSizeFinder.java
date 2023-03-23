@@ -23,6 +23,7 @@ public class FileSizeFinder {
     	System.out.println("Enter file path or leave blank for default");
     	input = scnr.nextLine();
     	if (!input.equals("")) {filePath = input;}
+    	System.out.println("Using file \"" + filePath + "\"");
 
 		File file = new File(filePath);
 
@@ -51,6 +52,7 @@ public class FileSizeFinder {
 		while (iterator.hasNext()) {
 			System.out.println(iterator.next());
 		}
+		scnr.close();
 	}
 
 }
