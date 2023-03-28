@@ -19,19 +19,24 @@ public class FileSizeFinder {
     		else {i++; filePath += directorySegments[j];}
     		if (directorySegments[j].equals("Users") || i == 1) {i++;}
     	}
-    	filePath += "\\Downloads\\FileSizeTest\\FileSizeTest";
-    	System.out.println("Enter file path or leave blank for default");
+    	filePath += "\\Downloads\\FileSizeTest";
+    	System.out.println("Enter file path or leave blank to use the default path of\n\t\"" + filePath + "\"   or   \"" + filePath.concat("\\FileSizeTest"));
     	input = scnr.nextLine();
     	if (!input.equals("")) {filePath = input;}
-    	System.out.println("Using file \"" + filePath + "\"");
-
+    	
 		File file = new File(filePath);
-
 		if (!file.exists()) {
 			System.out.println("The file " + filePath + " does not exist.\nExiting ...");
 			System.exit(-1);
+		} if (input.equals("")) {
+			File altFile = new File(filePath.concat("\\FileSizeTest"));
+			if (altFile.exists()) {
+				file = altFile;
+				filePath += "\\FileSizeTest";
+			}
 		}
 
+		System.out.println(filePath);
 		FileTree tree = new FileTree(filePath);
 
 		System.out.println("File size listing");

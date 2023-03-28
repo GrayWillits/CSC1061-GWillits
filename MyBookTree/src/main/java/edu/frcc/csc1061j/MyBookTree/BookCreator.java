@@ -30,15 +30,24 @@ public class BookCreator {
 			System.out.println(node.toString());
 		}
 		
-//		List<String> outputs = new ArrayList<String>();
-//		System.out.println(book.getBook());
-//		book.getBook().getChildNodes().forEach(t -> outputs.add(t.toString().replace("\t", "")));
-//		System.out.println(book.getBook().getChildNodes());
-//		System.out.println(outputs);
-//		List<BookNode> nodes = new ArrayList<BookNode>();
-//		book.getBook().getChildNodes().forEach(t -> nodes.addAll(t.getChildNodes()));
-//		nodes.forEach(s -> outputs.add(s.toString().replace("\t", "")));
-//		System.out.println(nodes + "\n" + outputs);
+		
+		
+		
+		List<String> outputs = new ArrayList<String>();
+		List<BookNode> nodes = new ArrayList<BookNode>();
+		System.out.println(book.getBook());
+		book.getBook().getChildNodes().forEach(t -> outputs.add(t.toString().replace("\t", "")));
+		System.out.println(outputs);
+		outputs.clear();
+		book.getBook().getChildNodes().forEach(t -> nodes.addAll(t.getChildNodes()));
+		nodes.forEach(s -> outputs.add(s.toString().replace("\t", "")));
+		System.out.println(outputs);
+		
 	}
 
 }
+
+
+
+
+
