@@ -36,7 +36,7 @@ public class FileSizeFinder {
 			}
 		}
 
-		System.out.println(filePath);
+		System.out.println("Using file \"" + filePath);
 		FileTree tree = new FileTree(filePath);
 
 		System.out.println("File size listing");

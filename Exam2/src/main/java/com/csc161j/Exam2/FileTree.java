@@ -2,6 +2,8 @@ package com.csc161j.Exam2;
 
 import java.io.File;
 import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Deque;
 import java.util.Iterator;
 import java.util.Queue;
@@ -24,7 +26,7 @@ public class FileTree implements Iterable <FileNode> {
 		return new DepthFirstIterator();
 	}
 	
-	/**
+	/**		DONE
 	 * 	TODO for Exam 2
 	 *  Use recursion to build the tree from the directory structure.
 	 *  For each of node starting from the root node use listFiles() from File to get 
@@ -36,7 +38,15 @@ public class FileTree implements Iterable <FileNode> {
 	 */
 	private void buildTree(FileNode fileNode) {
 
-	
+		File[] children = fileNode.getFile().listFiles();
+		ArrayList<FileNode> childNodes = fileNode.getChildNodes();
+		for(File child: children) {
+			FileNode childNode = new FileNode(child);
+			childNodes.add(childNode);
+			if (child.isDirectory()) {
+				buildTree(childNode);
+			}
+		}
 	}
 	
 	/**
@@ -48,19 +58,34 @@ public class FileTree implements Iterable <FileNode> {
 	 * @return 
 	 */
 	private class DepthFirstIterator implements Iterator<FileNode> {
+		Deque<FileNode> stack1;
+		Deque<FileNode> stack2;
 		
 		public DepthFirstIterator() {
-
+			stack1 = new ArrayDeque<FileNode>();
+			stack2 = new ArrayDeque<FileNode>();
+			stack1.push(root);
 		}
 
 		@Override
 		public boolean hasNext() {
-			return true;
+			return !stack1.isEmpty() || !stack2.isEmpty();
 		}
 		
 		@Override
 		public FileNode next() {
-			return null;
+			while (!stack1.isEmpty()) {
+				FileNode node = stack1.pop();
+				stack2.push(node);
+				ArrayList<FileNode> children = node.getChildNodes();
+				if (!children.isEmpty()) {
+					for (FileNode child: children) {
+						stack1.push(child);
+					}
+				}
+			}
+			FileNode node = stack2.pop();
+			return node;
 		}
 	}
 	
