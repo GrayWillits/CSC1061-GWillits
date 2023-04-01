@@ -36,7 +36,7 @@ public class FileSizeFinder {
 			}
 		}
 
-		System.out.println("Using file \"" + filePath);
+		System.out.println("Using file \"" + filePath + "\"\n\n");
 		FileTree tree = new FileTree(filePath);
 
 		System.out.println("File size listing");
@@ -47,7 +47,7 @@ public class FileSizeFinder {
 					size += child.getFileSize();
 				}
 				fileNode.setFileSize(size);
-				System.out.println(fileNode);
+				System.out.print(fileNode);
 			}
 		}
 
@@ -55,8 +55,9 @@ public class FileSizeFinder {
 		System.out.println("Breadth first listing of files");
 		Iterator<FileNode> iterator = tree.breadthFirstIterator();
 		while (iterator.hasNext()) {
-			System.out.println(iterator.next());
+			System.out.print(iterator.next());
 		}
+		
 		scnr.close();
 	}
 

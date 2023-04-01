@@ -106,20 +106,35 @@ public class FileTree implements Iterable <FileNode> {
 	 * 
 	 */
 	private class BreadthFirstIterator implements Iterator<FileNode> {
+		Deque<FileNode> stack;
 		
 		public BreadthFirstIterator() {
-
+			stack = new ArrayDeque<FileNode>();
+			stack.add(root);
 		}
 		
 		@Override
 		public boolean hasNext() {
-			return true;
+			return !stack.isEmpty();
 		}
 
 		@Override
 		public FileNode next() {
-			return null;
+			FileNode node = stack.pop();
+			ArrayList<FileNode> children = node.getChildNodes();
+			if (!children.isEmpty()) {
+				for (FileNode child: children) {
+					stack.add(child);
+				}
+			}
+			return node;
 		}
 		
 	}
 }
+
+
+
+
+
+
