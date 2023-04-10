@@ -12,6 +12,8 @@ public class TreeMapTest {
 		map.put(18,18);
 		
 		printInOrder(map);
+		map.remove(12);
+		printInOrder(map);
 	}
 	
 	private static void printInOrder(MyTreeMap<Integer, Integer> map) {

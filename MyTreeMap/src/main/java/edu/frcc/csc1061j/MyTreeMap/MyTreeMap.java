@@ -58,6 +58,21 @@ public class MyTreeMap<K,V> implements Map<K,V>, Iterable<V> {
 		}
 		
 	}
+	
+	private ArrayList<Node> getInOrder(Node node) {
+		ArrayList<Node> list = new ArrayList<>();
+		inOrderNodesRecursive(node, list);
+		return list;
+	}
+	
+	private void inOrderNodesRecursive(Node node, ArrayList<Node> list) {
+		if (node == null) {
+			return;
+		}
+		inOrderNodesRecursive(node.left, list);
+		list.add(node);
+		inOrderNodesRecursive(node.right, list);
+	}
 
 	@Override
 	public int size() {
@@ -95,6 +110,25 @@ public class MyTreeMap<K,V> implements Map<K,V>, Iterable<V> {
 			}
 			else {
 				return current.value;
+			}
+		}
+		
+		return null;
+	}
+	
+	private Node getNode(Object key) {
+		Comparable<K> k = (Comparable<K>) key;
+		Node current = root;
+		
+		while(current != null) {
+			if (k.compareTo(current.key) < 0) {
+				current = current.left;
+			}
+			else if (k.compareTo(current.key) > 0) {
+				current = current.right;
+			}
+			else {
+				return current;
 			}
 		}
 		
@@ -138,11 +172,81 @@ public class MyTreeMap<K,V> implements Map<K,V>, Iterable<V> {
 		size++;
 		return value;
 	}
+	
+	private Node getParent(Node node) {
+		Comparable<K> k = (Comparable<K>) node.key;
+		Node current = root;
+		
+		while(current != null) {
+			if (k.compareTo(current.key) < 0) {
+				if (current.left.key.equals(k)) {
+					return current;
+				}
+				current = current.left;
+			}
+			else if (k.compareTo(current.key) > 0) {
+				if (current.right.key.equals(k)) {
+					return current;
+				}
+				current = current.right;
+			}
+		}
+		
+		return null;
+	}
 
 	@Override
 	public V remove(Object key) {
 		
 		// THIS IS HOMEWORK
+		Node node = getNode(key);
+		Node parent = getParent(node);
+		ArrayList<Node> list = getInOrder(node);
+		
+		if (node.left == null && node.right == null) {
+			if (parent.left.equals(node)) {
+				parent.left = null;
+				return node.value;
+			}
+			if (parent.right.equals(node)) {
+				parent.right = null;
+				return node.value;
+			}
+		}
+		if (node.left != null && node.right == null) {
+			if (parent.left.equals(node)) {
+				parent.left = node.left;
+				return node.value;
+			}
+			if (parent.right.equals(node)) {
+				parent.right = node.left;
+				return node.value;
+			}
+		}
+		if (node.left == null && node.right != null) {
+			if (parent.left.equals(node)) {
+				parent.left = node.right;
+				return node.value;
+			}
+			if (parent.right.equals(node)) {
+				parent.right = node.right;
+				return node.value;
+			}
+		}
+		if (node.left != null && node.right != null) {
+			Node predecessor = list.get(list.indexOf(node) - 1);
+			remove(predecessor);
+			predecessor.left = node.left;
+			predecessor.right = node.right;
+			if (parent.left.equals(node)) {
+				parent.left = predecessor;
+				return node.value;
+			}
+			if (parent.right.equals(node)) {
+				parent.right = predecessor;
+				return node.value;
+			}
+		}
 		
 		return null;
 	}
