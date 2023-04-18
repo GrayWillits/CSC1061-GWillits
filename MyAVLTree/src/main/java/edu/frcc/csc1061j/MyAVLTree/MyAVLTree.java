@@ -201,11 +201,51 @@ public class MyAVLTree<K,V> implements Map<K,V>, Iterable<edu.frcc.csc1061j.MyAV
 	}
 	
 	private void balanceRR(Node node, Node parent) {
-		// TODO Auto-generated method stub
+		Node rightNode = node.right;
+		if (node == root) {
+			root = rightNode;
+		}
+		else {
+			if (parent.right == node) {
+				parent.right = rightNode;
+			}
+			else {
+				parent.left = rightNode;
+			}
+		}
+		
+		node.right = rightNode.left;
+		rightNode.left = node;
+		updateHeight(node);
+		updateHeight(rightNode);
 	}
 	
 	private void balanceRL(Node node, Node parent) {
 		// TODO Auto-generated method stub
+		Node rightNode = node.right;
+		Node child = rightNode.left;
+		
+		if (node == root) {
+			root = child;
+		}
+		else {
+			if (parent.right == node) {
+				parent.right = child;
+			}
+			else {
+				parent.left = child;
+			}
+		}
+		// Handle child's children
+		node.right = child.left;
+		rightNode.left = child.right;
+		
+		child.right = rightNode;
+		child.left = node;
+		
+		updateHeight(node);
+		updateHeight(rightNode);
+		updateHeight(child);
 	}
 	
 	private void ballancePath() {
@@ -242,7 +282,7 @@ public class MyAVLTree<K,V> implements Map<K,V>, Iterable<edu.frcc.csc1061j.MyAV
 		}
 	}
 
-	//@Override
+	@Override
 	public V put(K key, V value) {
 		if (root == null) {
 			Node newNode = new Node(key, value);
