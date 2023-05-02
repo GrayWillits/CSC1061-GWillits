@@ -1,9 +1,11 @@
 package edu.frcc.csc1061j.Exam4;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import edu.frcc.csc1061j.Exam4.Graph;
+import edu.frcc.csc1061j.Exam4.Graph.Vertex;
 
 public class GraphTest {
 
@@ -26,6 +28,15 @@ public class GraphTest {
 		Graph<Integer> graph = new Graph<>(vertices, edges);
 		System.out.println("Original Graph:");
 		graph.printEdges();
+		
+		for (Vertex vertex: graph.dfs(graph.vertices.get(0))) {
+			System.out.print(vertex.toString() + "  ");
+		}
+		System.out.println();
+		for (Integer vertex: graph.bfs()) {
+			System.out.print(vertex.toString() + "  ");
+		}
+		
 		
 		System.out.println("Minimum Spanning Tree:");
 		//graph.findMinimumSpanningTree().printEdges();		

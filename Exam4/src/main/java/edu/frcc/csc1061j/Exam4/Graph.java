@@ -10,7 +10,7 @@ import java.util.List;
 public class Graph<E> {
 	public List<Vertex> vertices = new ArrayList<>();
 	
-	private class Vertex {
+	public class Vertex {
 		private E elem;
 		private List<Edge> neighbors = new ArrayList<>();
 		
@@ -134,23 +134,50 @@ public class Graph<E> {
 	** vertices in the pre-order depth-first traversal.
 	*/
 	public List<Vertex> dfs(Vertex root) {
-		List<Vertex> list = new ArrayList<Vertex>();
+		List<Vertex> visited = new ArrayList<Vertex>();
 		Deque<Vertex> stack = new ArrayDeque<Vertex>();
+		Vertex vertex;
 		stack.push(root);
-		dfs(stack, list);
-		return null;
-	}
-	
-	private void dfs(Deque<Vertex> stack, List<Vertex> visited) {
-		Vertex vertex = stack.pop();
-		return;
+		
+		while (!stack.isEmpty()) {
+			vertex = stack.pop();
+			if (visited.contains(vertex)) {
+				continue;
+			}
+			visited.add(vertex);
+			for (Edge neighbor: vertex.neighbors) {
+				stack.push(neighbor.d);
+			}
+		}
+		
+		return visited;
 	}
 
 	/* TODO: Implement the BFS algorithm for a graph. It should return a list 
 	** of all the vertices in the breadth-first traversal.
 	*/
 	public List<E> bfs() {
-		return null;
+		List<Vertex> visited = new ArrayList<Vertex>();
+		Deque<Vertex> stack = new ArrayDeque<Vertex>();
+		Vertex vertex;
+		stack.push(vertices.get(0));
+		
+		while (!stack.isEmpty()) {
+			vertex = stack.pop();
+			if (visited.contains(vertex)) {
+				continue;
+			}
+			visited.add(vertex);
+			for (Edge neighbor: vertex.neighbors) {
+				stack.add(neighbor.d);
+			}
+		}
+		
+		List<E> list = new ArrayList<E>();
+		for (Vertex vert: visited) {
+			list.add(vert.elem);
+		}
+		return list;
 	}
 	
 
