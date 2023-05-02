@@ -2,6 +2,7 @@ package edu.frcc.csc1061j.Exam4;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
@@ -185,7 +186,49 @@ public class Graph<E> {
 	** The spanning tree will be a new graph
 	*/
 	public Graph<E> findMinimumSpanningTree() {
+		List<Edge> allEdges = new ArrayList<Edge>();
+		List<Vertex> connected = new ArrayList<Vertex>();
+		for (Vertex vertex: vertices) {
+			for (Edge neighbor: vertex.neighbors) {
+				allEdges.add(neighbor);
+			}
+		}
+		allEdges.sort(null);
+		for (int i = 0; i < allEdges.size(); i++) { // removes all parallel edges and loops
+			if (allEdges.get(i).d.equals(allEdges.get(i).s)) {
+				allEdges.remove(i);
+				i--;
+				continue;
+			}
+			for (int j = i + 1; j < allEdges.size(); j++) {
+				if (allEdges.get(i).s.equals(allEdges.get(j).s)) {
+					if (allEdges.get(i).d.equals(allEdges.get(j).d)) {
+						allEdges.remove(j);
+						j--;
+						continue;
+					}
+				}
+			}
+		}
+		
+		connected.add(allEdges.get(0).s);    // ASSUME THAT THE WEIGHT IS THE SAME BOTH WAYS
+		connected.add(allEdges.get(0).d);
+		Graph<E> graph = new Graph(connected);
+		graph.addEdge(allEdges.get(0));
+		for (int i = 1; i < allEdges.size(); i++) {
+			
+		}
+		
+		
 		
 		return null;
 	}
 }
+
+
+
+
+
+
+
+

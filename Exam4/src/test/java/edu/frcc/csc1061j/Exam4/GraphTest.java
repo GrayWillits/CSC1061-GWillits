@@ -39,7 +39,7 @@ public class GraphTest {
 		
 		
 		System.out.println("Minimum Spanning Tree:");
-		//graph.findMinimumSpanningTree().printEdges();		
+		graph.findMinimumSpanningTree().printEdges();		
 	}
 
 
