@@ -186,42 +186,56 @@ public class Graph<E> {
 	** The spanning tree will be a new graph
 	*/
 	public Graph<E> findMinimumSpanningTree() {
-		List<Edge> allEdges = new ArrayList<Edge>();
+		List<Edge> edges = new ArrayList<Edge>();
 		List<Vertex> connected = new ArrayList<Vertex>();
 		for (Vertex vertex: vertices) {
 			for (Edge neighbor: vertex.neighbors) {
-				allEdges.add(neighbor);
+				edges.add(neighbor);
 			}
 		}
-		allEdges.sort(null);
-		for (int i = 0; i < allEdges.size(); i++) { // removes all parallel edges and loops
-			if (allEdges.get(i).d.equals(allEdges.get(i).s)) {
-				allEdges.remove(i);
+		edges.sort(null);
+		for (int i = 0; i < edges.size(); i++) { // removes all parallel edges and loops
+			if (edges.get(i).d.equals(edges.get(i).s)) {
+				edges.remove(i);
 				i--;
 				continue;
 			}
-			for (int j = i + 1; j < allEdges.size(); j++) {
-				if (allEdges.get(i).s.equals(allEdges.get(j).s)) {
-					if (allEdges.get(i).d.equals(allEdges.get(j).d)) {
-						allEdges.remove(j);
+			for (int j = i + 1; j < edges.size(); j++) {
+				if (edges.get(i).s.equals(edges.get(j).s)) {
+					if (edges.get(i).d.equals(edges.get(j).d)) {
+						edges.remove(j);
+						j--;
+						continue;
+					}
+				}
+				else if (edges.get(i).s.equals(edges.get(j).d)) {
+					if (edges.get(i).d.equals(edges.get(j).s)) {
+						edges.remove(j);
 						j--;
 						continue;
 					}
 				}
 			}
-		}
-		
-		connected.add(allEdges.get(0).s);    // ASSUME THAT THE WEIGHT IS THE SAME BOTH WAYS
-		connected.add(allEdges.get(0).d);
-		Graph<E> graph = new Graph(connected);
-		graph.addEdge(allEdges.get(0));
-		for (int i = 1; i < allEdges.size(); i++) {
 			
 		}
 		
+		List<Vertex> emptyVertices = new ArrayList<Vertex>();
+		for (Vertex vertex: vertices) {
+			emptyVertices.add(new Vertex(vertex.getKey()));
+		}
+		Graph<E> graph = new Graph<E>(emptyVertices);
 		
-		
-		return null;
+		for (Edge edge: edges) { // ASSUME THAT THE WEIGHT IS THE SAME BOTH WAYS
+			if (dfs(graph.findVertex(edge.s.elem)).contains(graph.findVertex(edge.d.elem))) {
+				continue;
+			}
+			else {
+				graph.addEdge(new Edge(graph.findVertex(edge.s.elem), graph.findVertex(edge.d.elem), edge.weight));
+				graph.addEdge(new Edge(graph.findVertex(edge.d.elem), graph.findVertex(edge.s.elem), edge.weight));
+				continue;
+			}
+		}
+		return graph;
 	}
 }
 

@@ -14,7 +14,7 @@ public class GraphTest {
 		for (int i = 0; i < 6; i++) {
 			vertices.add(i);
 		}
-
+		
 		// Edges for MST
 		Integer[][] edges = {
 				{0, 1, 5}, {0, 2, 4}, 
@@ -26,17 +26,9 @@ public class GraphTest {
 		};
 
 		Graph<Integer> graph = new Graph<>(vertices, edges);
+		
 		System.out.println("Original Graph:");
 		graph.printEdges();
-		
-		for (Vertex vertex: graph.dfs(graph.vertices.get(0))) {
-			System.out.print(vertex.toString() + "  ");
-		}
-		System.out.println();
-		for (Integer vertex: graph.bfs()) {
-			System.out.print(vertex.toString() + "  ");
-		}
-		
 		
 		System.out.println("Minimum Spanning Tree:");
 		graph.findMinimumSpanningTree().printEdges();		
